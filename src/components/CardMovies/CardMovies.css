@@ -1,0 +1,51 @@
+.movies-card {
+  width: 451px;
+  height: 279px;
+  display: flex;
+  gap: 20px;
+  padding: 0 20px 0 0;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.wrap-movies-card-description {
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+  margin-top: 10px;
+}
+
+.movies-card__img {
+  width: 183px;
+  height: 281px;
+}
+
+.movies-card__title {
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 28px;
+}
+
+.movies-card__date-release {
+  font-size: 12px;
+}
+
+.list-genres {
+  display: flex;
+  gap: 8px;
+  font-size: 12px;
+}
+
+.list-genres__item {
+  display: flex;
+  padding: 2px 4px;
+  background-color: #FAFAFA;
+  border: 1px solid rgba(217, 217, 217, 1);
+  border-radius: 2px;
+  list-style: none;
+}
+
+.movies-card__description {
+  max-width: 228px;
+  font-size: 12px;
+  line-height: 22px;
+}
