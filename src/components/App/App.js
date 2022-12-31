@@ -1,11 +1,11 @@
+import React from 'react';
 import './App.css';
-import { Card } from 'antd';
-import { MoviesList } from '../MoviesList/MoviesList';
+import MoviesList from '../MoviesList/MoviesList';
 
 function App() {
   return (
     <div className="app">
-      <MoviesList/>
+      <MoviesList />
     </div>
   );
 }
