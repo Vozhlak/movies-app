@@ -1,6 +1,6 @@
 .movies-list {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(451px, 1fr));
+  grid-template-columns: 1fr 1fr;
   gap: 35px 30px;
   background-color: #fff;
   height: auto;
