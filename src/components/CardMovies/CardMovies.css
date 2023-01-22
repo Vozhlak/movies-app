@@ -1,42 +1,91 @@
 .movies-card {
-  width: 451px;
+  display: grid;
+  grid-template-columns: 1fr 6fr 35px;
+  width: auto;
   height: 279px;
-  display: flex;
-  gap: 20px;
-  padding: 0 20px 0 0;
+  gap: 5px 15px;
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
 }
 
-.wrap-movies-card-description {
-  display: flex;
-  flex-direction: column;
-  gap: 11px;
-  margin-top: 10px;
+@media (max-width: 490px) {
+  .movies-card {
+    gap: 5px 7px;
+  }
 }
 
 .movies-card__img {
-  width: 183px;
-  height: 281px;
+  width: 180px;
+  height: 100%;
+  object-fit: cover;
+  grid-row: 1/6;
+}
+
+@media (max-width: 520px) {
+  .movies-card__img {
+    grid-column: 1/2;
+    grid-row: 1/4;
+    height: 125px;
+    width: 80px;
+    margin: 10px 0 0 10px;
+  }
+}
+
+.wrap-info-data-and-genres {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  grid-column: 2/5;
 }
 
 .movies-card__title {
+  grid-column: 2/4;
+  grid-row: 1;
   font-size: 20px;
   font-weight: 400;
   line-height: 28px;
+  margin-top: 10px;
+}
+
+@media (max-width: 520px) {
+  .movies-card__title {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 320px) {
+  .movies-card__title {
+    line-height: 18px;
+  }
+}
+
+.movies-card__date-release,
+.list-genres {
+  display: flex;
+  align-self: start;
 }
 
 .movies-card__date-release {
+  grid-row: 2/3;
   font-size: 12px;
+  color: rgba(130, 126, 126, 1);
 }
 
 .list-genres {
-  display: flex;
+  flex-wrap: wrap;
   gap: 8px;
+  grid-row: 3/4;
   font-size: 12px;
 }
 
+@media (max-width: 490px) {
+  .list-genres {
+    gap: 3px;
+  }
+}
+
 .list-genres__item {
-  display: flex;
+  justify-self: flex-start;
+  align-self: flex-start;
   padding: 2px 4px;
   background-color: #fafafa;
   border: 1px solid rgba(217, 217, 217, 1);
@@ -44,8 +93,50 @@
   list-style: none;
 }
 
+.not-genres {
+  border: 1px solid silver;
+  font-size: 12px;
+}
+
 .movies-card__description {
-  max-width: 228px;
+  grid-column: 2/5;
   font-size: 12px;
   line-height: 22px;
+  padding-right: 15px;
+}
+
+@media (max-width: 520px) {
+  .movies-card__description {
+    grid-column: 1/5;
+    margin-left: 10px;
+  }
+}
+
+.badge-rated {
+  grid-column: 4/5;
+  grid-row: 1/2;
+  display: flex;
+  border: 2px solid #e90000;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  font-size: 14px;
+  font-weight: 500;
+  justify-content: center;
+  align-items: center;
+  justify-self: end;
+  align-self: start;
+  margin: 7px 7px 0 0 ;
+}
+
+.badge-rated.orange {
+  border: 2px solid #E97E00;
+}
+
+.badge-rated.yellow {
+  border: 2px solid #E9D100;
+}
+
+.badge-rated.green {
+  border-color: #66E900;
 }

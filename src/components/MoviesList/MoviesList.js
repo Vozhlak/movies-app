@@ -1,39 +1,39 @@
-import React, { Component } from 'react';
 import './MoviesList.css';
 import CardMovies from '../CardMovies/CardMovies';
-import TheMovieDBService from '../../services/movie-service';
 
-export default class MoviesList extends Component {
-  constructor() {
-    super();
-    this.state = {
-      movies: []
-    };
-  }
-
-  componentDidMount() {
-    const movies = new TheMovieDBService().getMovies();
-    movies.then((el) => {
-      this.setState({ movies: el });
-    });
-  }
-
-  render() {
-    const { movies } = this.state;
-    console.log(movies);
-    return (
-      <ul className="movies-list">
-        {movies.map((movieItem) => (
-          <li className="movies-list__item" key={movieItem.id}>
+function MoviesList({ movies, guestSessionId }) {
+  return (
+    <ul className='movies-list'>
+      {movies.map(
+        ({
+          id,
+          title,
+          overview,
+          poster_path: posterUrl,
+          release_date: releaseDate,
+          vote_average: voteAverage,
+          rating,
+          genre_ids: genresIds
+        }) => (
+          <li
+            className='movies-list__item'
+            key={id}>
             <CardMovies
-              title={movieItem.title}
-              overview={movieItem.overview}
-              posterUrl={movieItem.poster_path}
-              releaseDate={movieItem.release_date}
+              id={id}
+              title={title}
+              overview={overview}
+              posterUrl={posterUrl}
+              releaseDate={releaseDate}
+              voteAverage={voteAverage}
+              guestSessionId={guestSessionId}
+              rating={rating}
+              genresIds={genresIds}
             />
           </li>
-        ))}
-      </ul>
-    );
-  }
+        )
+      )}
+    </ul>
+  );
 }
+
+export default MoviesList;

@@ -13,3 +13,21 @@ body {
   font-family: 'Inter', sans-serif;
   font-weight: 400;
 }
+
+.app {
+  max-width: 1010px;
+  margin: 0 auto;
+  min-width: 320px;
+  min-height: 100vh;
+  height: auto;
+  position: relative;
+  padding: 0 36px 17px;
+  background-color: #fff;
+}
+
+.content {
+  display: grid;
+  grid-template-rows: auto;
+  grid-row-gap: 36px;
+  justify-items: center;
+}

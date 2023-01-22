@@ -5,10 +5,35 @@
   background-color: #fff;
   height: auto;
   margin: 0 auto;
-  padding: 21px 32px 30px 32px;
   max-width: 1010px;
+}
+
+@media (max-width: 950px) {
+  .movies-list {
+    grid-template-columns: 1fr;
+    min-width: 100%;
+  }
 }
 
 .movies-list__item {
   list-style: none;
+  cursor: pointer;
+  transition: all 0.4s;
+}
+
+.movies-list__item:hover {
+  transform: translate(-5px, -5px);
+  box-shadow: 5px 5px 5px #c1bfc4;
+}
+
+.alert {
+  width: 50%;
+  margin: 0 auto;
+  margin-top: 20px;
+}
+
+.spin {
+  position: absolute;
+  left: 50%;
+  top: 50%;
 }
