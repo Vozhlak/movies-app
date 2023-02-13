@@ -7,19 +7,21 @@ import debounce from 'lodash.debounce';
 export default class Search extends Component {
   state = {};
 
-  onChange = (e) => {
+  onChangeSearch = (e) => {
     const { searchChangeQuery } = this.props;
     const trimSearchMovieRequest = e.target.value.replace(/ +/g, ' ').trim();
     searchChangeQuery(trimSearchMovieRequest);
   };
 
   render() {
+    const { searchValue } = this.props;
     return (
       <Input
         placeholder='Type to search...'
         size='large'
         style={{ borderRadius: 4 }}
-        onChange={debounce(this.onChange, 1000)}
+        defaultValue={searchValue}
+        onChange={debounce(this.onChangeSearch, 1000)}
       />
     );
   }

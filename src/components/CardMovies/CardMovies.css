@@ -15,6 +15,7 @@
 
 .movies-card__img {
   width: 180px;
+  min-height: 279px;
   height: 100%;
   object-fit: cover;
   grid-row: 1/6;
@@ -24,11 +25,22 @@
   .movies-card__img {
     grid-column: 1/2;
     grid-row: 1/4;
-    height: 125px;
+    min-height: 100px;
+    height: 100%;
+    width: 110px;
+    margin: 10px 0 0 10px;
+  }
+}
+
+@media (max-width: 360px) {
+  .movies-card__img {
+    min-height: 100px;
+    height: 100%;
     width: 80px;
     margin: 10px 0 0 10px;
   }
 }
+
 
 .wrap-info-data-and-genres {
   display: flex;
@@ -49,6 +61,7 @@
 @media (max-width: 520px) {
   .movies-card__title {
     font-size: 14px;
+    line-height: 20px;
   }
 }
 
@@ -74,6 +87,7 @@
   flex-wrap: wrap;
   gap: 8px;
   grid-row: 3/4;
+  padding-right: 10px;
   font-size: 12px;
 }
 
@@ -96,6 +110,8 @@
 .not-genres {
   border: 1px solid silver;
   font-size: 12px;
+  max-width: fit-content;
+  padding: 2px;
 }
 
 .movies-card__description {
@@ -109,6 +125,7 @@
   .movies-card__description {
     grid-column: 1/5;
     margin-left: 10px;
+    margin-top: 10px;
   }
 }
 

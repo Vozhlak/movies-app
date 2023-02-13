@@ -1,10 +1,11 @@
 import './MoviesList.css';
 import CardMovies from '../CardMovies/CardMovies';
 
-function MoviesList({ movies, guestSessionId }) {
+function MoviesList({ movies, ratedMovies, guestSessionId, tabKey }) {
+  const currentMovies = tabKey === '1' ? movies : ratedMovies;
   return (
     <ul className='movies-list'>
-      {movies.map(
+      {currentMovies.map(
         ({
           id,
           title,

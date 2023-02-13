@@ -14,10 +14,13 @@ export default class App extends Component {
 
   state = {
     movies: [],
+    ratedMovies: [],
     genres: [],
     search: '',
     numberPage: 1,
+    numberPageRated: 1,
     totalPages: 0,
+    totalPagesRatedMovies: 0,
     guestSessionId: '',
     tabKey: '1',
     isLoading: true,
@@ -54,8 +57,8 @@ export default class App extends Component {
 
   getPopularMovies = () => {
     const { numberPage } = this.state;
+
     this.setState({
-      movies: [],
       isLoading: true,
       isError: false,
       notFound: false
@@ -83,9 +86,7 @@ export default class App extends Component {
 
   getSearchMovies = () => {
     const { search, numberPage } = this.state;
-
     this.setState({
-      movies: [],
       isLoading: true,
       isError: false,
       notFound: false
@@ -104,11 +105,15 @@ export default class App extends Component {
             });
           }
 
-          this.setState({
-            movies: results,
-            isLoading: false,
-            numberPage: page,
-            totalPages
+          this.setState((prevState) => {
+            const { prevNumbersPage } = prevState;
+            return {
+              movies: results,
+              isLoading: false,
+              prevNumbersPage: { ...prevNumbersPage },
+              numberPage: page,
+              totalPages
+            };
           });
         })
         .catch(this.onError);
@@ -130,7 +135,7 @@ export default class App extends Component {
     if (tabKey === '1') {
       this.setState({ numberPage: page }, () => this.getSearchMovies());
     } else {
-      this.setState({ numberPage: page }, () => this.getRatedMovies());
+      this.setState({ numberPageRated: page }, () => this.getRatedMovies());
     }
   };
 
@@ -139,7 +144,7 @@ export default class App extends Component {
   };
 
   getRatedMovies = () => {
-    const { guestSessionId, numberPage } = this.state;
+    const { guestSessionId, numberPageRated } = this.state;
     this.setState({
       isLoading: true,
       isError: false,
@@ -147,7 +152,7 @@ export default class App extends Component {
     });
 
     this.moviesApi
-      .getRatedMovies(guestSessionId, numberPage)
+      .getRatedMovies(guestSessionId, numberPageRated)
       .then(({ results, page, total_pages: totalPages }) => {
         if (results.length === 0) {
           this.setState({
@@ -157,38 +162,33 @@ export default class App extends Component {
         }
 
         this.setState({
-          movies: results,
+          ratedMovies: results,
           isLoading: false,
-          totalPages,
-          numberPage: page
+          totalPagesRatedMovies: totalPages,
+          numberPageRated: page
         });
       })
       .catch(this.onError);
   };
 
   changeTab = (key) => {
+    const { numberPage, movies } = this.state;
     if (key === '2') {
       this.setState(
         {
           notFound: true,
           tabKey: key,
-          numberPage: 1
+          numberPageRated: 1
         },
-        () => {
-          this.getRatedMovies();
-        }
+        () => this.getRatedMovies()
       );
     } else {
-      this.setState(
-        {
-          notFound: false,
-          tabKey: key,
-          numberPage: 1
-        },
-        () => {
-          this.getPopularMovies();
-        }
-      );
+      this.setState({
+        notFound: false,
+        tabKey: key,
+        numberPage,
+        movies
+      });
     }
   };
 
@@ -201,14 +201,18 @@ export default class App extends Component {
   render() {
     const {
       movies,
+      ratedMovies,
       isLoading,
       isError,
       notFound,
       totalPages,
+      totalPagesRatedMovies,
       numberPage,
+      numberPageRated,
       guestSessionId,
       tabKey,
-      genres
+      genres,
+      search: searchValue
     } = this.state;
 
     const spin = isLoading ? (
@@ -232,9 +236,9 @@ export default class App extends Component {
     const pagination =
       totalPages > 0 && !isLoading && !notFound ? (
         <Pagination
-          defaultCurrent={1}
-          current={numberPage}
-          total={totalPages * 10}
+          defaultCurrent={tabKey === '1' ? numberPage : numberPageRated}
+          current={tabKey === '1' ? numberPage : numberPageRated}
+          total={tabKey === '1' ? totalPages * 10 : totalPagesRatedMovies * 10}
           showSizeChanger={false}
           onChange={this.changePage}
         />
@@ -244,13 +248,18 @@ export default class App extends Component {
     const content = hasData ? (
       <MoviesList
         movies={movies}
+        ratedMovies={ratedMovies}
         guestSessionId={guestSessionId}
+        tabKey={tabKey}
       />
     ) : null;
     const foundContent = notFound ? <Empty /> : content;
     const search =
       tabKey === '1' ? (
-        <Search searchChangeQuery={this.searchChangeQuery} />
+        <Search
+          searchChangeQuery={this.searchChangeQuery}
+          searchValue={searchValue}
+        />
       ) : null;
 
     return (

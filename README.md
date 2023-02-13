@@ -1,3 +1,3 @@
 # Movies App
 
-https://movies-app-vozhlak.vercel.app/
+https://movies-app-iota-seven.vercel.app
