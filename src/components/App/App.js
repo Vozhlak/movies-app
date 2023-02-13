@@ -30,7 +30,7 @@ export default class App extends Component {
 
   componentDidMount() {
     const sessionID = localStorage.getItem('guestSessionId');
-    if (!sessionID) {
+    if (!sessionID || sessionID === 'undefined') {
       this.createGuestSession();
     } else {
       this.setState({
@@ -184,6 +184,7 @@ export default class App extends Component {
       );
     } else {
       this.setState({
+        isError: false,
         notFound: false,
         tabKey: key,
         numberPage,
